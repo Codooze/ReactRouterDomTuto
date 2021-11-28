@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Outlet, Link } from "react-router-dom";
 
 //?teach React Router how to render our app at different URLs 
 function App() {
@@ -14,6 +14,7 @@ function App() {
         <Link to="/invoices">Invoices</Link> |{" "}
         <Link to="/expenses">Expenses</Link>
       </nav>
+       <Outlet />
     </div>
   );
 }
