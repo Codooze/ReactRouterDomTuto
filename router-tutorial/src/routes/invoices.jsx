@@ -1,4 +1,4 @@
-import { Link, NavLink, Outlet, useSearchParams } from "react-router-dom";
+import { Link, NavLink, Outlet,useLocation, useSearchParams } from "react-router-dom";
 import { getInvoices } from "../data";
 
 export default function Invoices() {
@@ -32,7 +32,7 @@ export default function Invoices() {
             return name.startsWith(filter.toLowerCase());
           })
           .map((invoice) => (
-          <NavLink
+          <QueryNavLink
             style={({ isActive }) => {
               return {
                 display: "block",
@@ -44,13 +44,19 @@ export default function Invoices() {
             key={invoice.number}
           >
             {invoice.name}
-          </NavLink>
+          </QueryNavLink >
         ))}
       </nav>
       <Outlet />
     </div>
   );
 }
+
+function QueryNavLink({ to, ...props }) {
+  let location = useLocation();
+  return <NavLink to={to + location.search} {...props} />;
+}
+
 
 //- active links Link vs NavLink https://reactrouter.com/docs/en/v6/getting-started/tutorial#active-links
 //It's very common, especially in navigation lists, to display the link as the active link the user is looking at. 
